@@ -208,10 +208,10 @@ export default function PredictionClient() {
 
       stopWatchPolling();
       setWatchModalOpen(false);
-      setWatchNotice("Apple Watch data received from Terra API Simulation.");
+      setWatchNotice("Apple Watch data received from Vital API Simulation.");
       renderCharts(data);
       fillDebugZone(data.at(-1)!);
-      setDataSource("Apple Watch webhook data");
+      setDataSource("Vital API webhook data");
       setFormError(null);
     } catch {
       setWatchStatus("Waiting for Apple Watch Webhook... retrying");
@@ -271,7 +271,16 @@ export default function PredictionClient() {
       throw new Error("Date is required in the Debug Zone.");
     }
 
-    const row = HEALTH_FIELDS.reduce(
+    // 1. นำข้อมูลประวัติ 6 วันแรก (ยกเว้นวันล่าสุด) มาเติม Age, Gender ให้ครบตาม Schema
+    const pastDaysPayload = historyData.slice(0, -1).map((day) => ({
+      ...day,
+      Age: ageValue,
+      Gender: genderValue,
+      Clinical_Note: "", // วันย้อนหลังไม่ต้องแนบ Clinical Note
+    }));
+
+    // 2. ดึงข้อมูลวันที่ 7 จาก Debug Zone (เพื่อให้รองรับค่าที่ผู้ใช้อาจจะพิมพ์แก้เอง)
+    const latestDayPayload = HEALTH_FIELDS.reduce(
       (acc, field) => ({
         ...acc,
         [field]: parseRequiredNumber(debugValues[field], field.replaceAll("_", " ")),
@@ -280,11 +289,12 @@ export default function PredictionClient() {
         Date: debugValues.Date.trim(),
         Age: ageValue,
         Gender: genderValue,
-        Clinical_Note: clinicalNote.trim(),
+        Clinical_Note: clinicalNote.trim(), // แนบ Note ไปกับวันล่าสุดวันเดียวพอ
       } as DailyHealthData
     );
 
-    return [row];
+    // 3. รวมข้อมูลอดีต + วันล่าสุด ส่งไปเป็น Array 7 วัน
+    return [...pastDaysPayload, latestDayPayload];
   }
 
   async function submitPredictRisk() {
@@ -345,7 +355,7 @@ export default function PredictionClient() {
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <SectionHeader
               eyebrow="1. Connect Apple Watch"
-              title="Terra API Simulation"
+              title="Vital API Simulation"
               description="Connect Apple Watch and wait for the backend webhook payload."
             />
             <div className="mt-6 flex flex-col gap-4 sm:flex-row">
@@ -573,7 +583,7 @@ export default function PredictionClient() {
           <div className="w-full max-w-md rounded-3xl bg-white p-6 text-slate-950 shadow-2xl">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.24em] text-teal-600">Terra API Simulation</p>
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-teal-600">Vital API Simulation</p>
                 <h2 className="mt-2 text-2xl font-black">Connect Apple Watch</h2>
               </div>
               <button

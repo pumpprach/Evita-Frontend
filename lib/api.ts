@@ -1,46 +1,34 @@
-import { PredictRiskPayload, PredictionApiResponse } from "@/types/prediction";
+// @/lib/api.ts
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// ชี้ไปที่ Backend FastAPI ของเรา (ถ้าขึ้น Cloud แล้วค่อยมาเปลี่ยน URL ตรงนี้)
+const API_BASE_URL = "http://localhost:8000";
 
-async function readErrorMessage(res: Response) {
-  const fallback = `API error: ${res.status} ${res.statusText}`;
-
-  try {
-    const body = await res.json();
-    if (typeof body?.detail === "string") return body.detail;
-    if (typeof body?.message === "string") return body.message;
-    if (typeof body?.error === "string") return body.error;
-    return fallback;
-  } catch {
-    return fallback;
+// ฟังก์ชันสำหรับ Polling รอข้อมูลจาก Webhook
+export async function fetchWatchData() {
+  const response = await fetch(`${API_BASE_URL}/api/debug/fetch_watch_data`);
+  
+  if (!response.ok) {
+    throw new Error("Data not ready yet");
   }
+  
+  return response.json();
 }
 
-export async function fetchWatchData(): Promise<unknown> {
-  const res = await fetch(`${API_URL}/api/debug/fetch_watch_data`, {
-    method: "GET",
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error(await readErrorMessage(res));
-  }
-
-  return res.json();
-}
-
-export async function predictDiabetes(
-  payload: PredictRiskPayload
-): Promise<PredictionApiResponse> {
-  const res = await fetch(`${API_URL}/api/predict_risk`, {
+// ฟังก์ชันสำหรับส่งข้อมูล 7 วันไปทำนายผลความเสี่ยง
+export async function predictDiabetes(payload: any) {
+  const response = await fetch(`${API_BASE_URL}/api/predict_risk`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    // ห่อข้อมูลให้ตรงกับ schema PredictionRequest ของ Backend
+    body: JSON.stringify({ user_history: payload }),
   });
 
-  if (!res.ok) {
-    throw new Error(await readErrorMessage(res));
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || "Prediction request failed");
   }
 
-  return res.json();
+  return response.json();
 }
