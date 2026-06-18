@@ -1,0 +1,79 @@
+/* app/globals.css */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
+@import "tailwindcss";
+
+
+:root {
+  --teal: #5eead4;
+  --teal-dark: #0d9488;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* ── Gauge arc animation ── */
+@keyframes dash-in {
+  from { stroke-dasharray: 0 440; }
+  to   { stroke-dasharray: var(--dash) 440; }
+}
+.gauge-arc-animated {
+  animation: dash-in 1.2s ease forwards;
+}
+
+/* ── Mini bar chart in hero ── */
+.mini-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 80px;
+  padding: 8px 0;
+}
+
+/* ── SHAP bar animation ── */
+@keyframes grow-bar {
+  from { width: 0; }
+}
+.shap-bar {
+  animation: grow-bar 0.6s ease forwards;
+}
+
+/* ── Spinner ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ── Result section reveal ── */
+.result-reveal {
+  animation: fade-up 0.5s ease forwards;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1e293b; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
