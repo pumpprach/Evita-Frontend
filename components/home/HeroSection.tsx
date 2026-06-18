@@ -3,24 +3,24 @@ import Link from "next/link";
 import MiniBarChart from "@/components/charts/MiniBarChart";
 
 const stats = [
-  { val: "89.4%", label: "Model Accuracy" },
-  { val: "10K+", label: "Training Records" },
-  { val: "13",   label: "Risk Factors" },
+  { val: "74%", label: "Model Accuracy" },
+  { val: "5K+", label: "Training Records" },
+  { val: "20",   label: "Risk Factors" },
 ];
 
 const metrics = [
-  { val: "89.4%", label: "Accuracy" },
-  { val: "87.2%", label: "Precision" },
-  { val: "85.9%", label: "Recall" },
-  { val: "0.893", label: "AUC-ROC" },
+  { val: "74%", label: "Accuracy" },
+  { val: "68.0%", label: "Precision" },
+  { val: "64.0%", label: "Recall" },
+  { val: "0.848", label: "AUC-ROC" },
 ];
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 pt-16 pb-24 px-6">
+    <section className="relative overflow-hidden bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 pt-16 pb-24 px-6">
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-teal-500/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-40 -left-40 w-150 h-150 rounded-full bg-teal-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-20 w-125 h-125 rounded-full bg-indigo-500/10 blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
         {/* ── Left ── */}
@@ -33,7 +33,7 @@ export default function HeroSection() {
           <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-4">
             AI Diabetes
             <br />
-            <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
               Risk Prediction
             </span>
           </h1>

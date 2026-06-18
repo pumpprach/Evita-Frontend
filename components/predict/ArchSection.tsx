@@ -12,28 +12,29 @@ const modelInfo = [
   {
     title: "Model Information",
     rows: [
-      ["Algorithm",   "Random Forest"],
-      ["Estimators",  "200 trees"],
-      ["Max Depth",   "10"],
-      ["Last Trained","June 2026"],
+      ["Algorithm", "Random Forest"],
+      ["Estimators", "200 trees"],
+      ["Max Depth", "10"],
+      ["Last Trained", "June 2026"],
     ],
   },
   {
     title: "Performance Metrics",
     rows: [
-      ["Accuracy",  "89.4%"],
-      ["Precision", "87.2%"],
-      ["Recall",    "85.9%"],
-      ["F1-Score",  "86.5%"],
+      ["ROC-AUC (Macro)", "0.8477"],
+      ["Accuracy", "74.0%"],
+      ["Macro Precision", "68.0%"],
+      ["Macro Recall", "64.0%"],
+      ["Macro F1-Score", "65.0%"],
     ],
   },
   {
     title: "Dataset Info",
     rows: [
-      ["Total Records",  "10,000"],
-      ["Train / Test",   "80 / 20%"],
-      ["Positive Cases", "34.2%"],
-      ["Cross-Val",      "5-fold"],
+      ["Total Records", "50k+"],
+      ["Normal (0)", "3,997"],
+      ["Pre-diabetes (1)", "1,554"],
+      ["Diabetes (2)", "749"],
     ],
   },
 ];

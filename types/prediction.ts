@@ -19,11 +19,11 @@ export interface ShapFactor {
   label: string;
   value: number;
   pct: string;
-  positive: boolean; // true = เพิ่มความเสี่ยง, false = ลดความเสี่ยง
+  positive: boolean;
 }
 
 export interface PredictionResult {
-  risk_score: number;      // 0–100
+  risk_score: number;
   top_factors: ShapFactor[];
 }
 
@@ -70,3 +70,29 @@ export const RISK_CONFIG: Record<
     advice: "ความเสี่ยงอยู่ในระดับต่ำ ดูแลสุขภาพให้สม่ำเสมอ ออกกำลังกายและรับประทานอาหารที่มีประโยชน์ต่อไป",
   },
 };
+
+export interface PatientRecord {
+ id: string;
+  name: string;
+
+  age: number;
+  gender: "M" | "F";
+
+  riskScore: number;
+  riskLevel: RiskLevel;
+
+  date: string;
+
+  topFactor: string;
+
+  restingHR: number;
+  hrv: number;
+  spo2: number;
+
+  sleepDuration: number;
+  sleepEfficiency: number;
+  sleepRegularity: number;
+
+  steps: number;
+  sedentaryHours: number;
+}
