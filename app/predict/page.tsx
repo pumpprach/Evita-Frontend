@@ -1,9 +1,8 @@
-// app/predict/page.tsx
 import PredictionClient from "@/components/predict/PredictionClient";
 
 export const metadata = {
-  title: "Evita — Prediction",
-  description: "EVITA MVP diabetes risk prediction with Apple Watch trend data",
+  title: "EVITA MVP Dashboard",
+  description: "EVITA MVP diabetes risk dashboard with Apple Watch trends and SHAP insights",
 };
 
 export default function PredictPage() {

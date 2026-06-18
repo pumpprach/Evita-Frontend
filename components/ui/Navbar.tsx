@@ -1,4 +1,3 @@
-// components/ui/Navbar.tsx
 "use client";
 
 import Link from "next/link";
@@ -15,24 +14,20 @@ export default function Navbar() {
   const path = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
-      {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 font-semibold text-lg text-white">
-        <span className="w-2.5 h-2.5 rounded-full bg-teal-400 inline-block" />
-        Evita
+    <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-800 bg-slate-900/85 px-6 py-4 backdrop-blur-md">
+      <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-white">
+        <span className="inline-block h-2.5 w-2.5 rounded-full bg-teal-400" />
+        EVITA
       </Link>
 
-      {/* Links */}
-      <div className="hidden md:flex items-center gap-6">
+      <div className="hidden items-center gap-6 md:flex">
         {links.map(({ href, label }) => (
           <Link
             key={href}
             href={href}
             className={clsx(
               "text-sm font-medium transition-colors",
-              path === href
-                ? "text-teal-400"
-                : "text-slate-400 hover:text-slate-100"
+              path === href ? "text-teal-400" : "text-slate-400 hover:text-slate-100"
             )}
           >
             {label}
@@ -40,12 +35,11 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* CTA */}
       <Link
         href="/predict"
-        className="px-4 py-2 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-900 text-sm font-semibold transition-colors"
+        className="rounded-lg bg-teal-500 px-4 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-teal-400"
       >
-        เริ่มประเมิน →
+        Open Dashboard
       </Link>
     </nav>
   );
