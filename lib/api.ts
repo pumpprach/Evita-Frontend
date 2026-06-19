@@ -1,7 +1,7 @@
 // @/lib/api.ts
 
 // ชี้ไปที่ Backend FastAPI ของเรา (ถ้าขึ้น Cloud แล้วค่อยมาเปลี่ยน URL ตรงนี้)
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 // ฟังก์ชันสำหรับ Polling รอข้อมูลจาก Webhook
 export async function fetchWatchData() {
